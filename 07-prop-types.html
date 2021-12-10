@@ -5,22 +5,32 @@
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
   <script type="text/babel">
-    const rootElement = document.getElementById('root')
+    const rootElement = document.getElementById("root");
 
-    function SayHello({firstName, lastName}) {
+    function SayHello({ firstName, lastName }) {
       return (
         <div>
           Hello {firstName} {lastName}!
         </div>
-      )
+      );
     }
+    const PropTypes = {
+      string(props, propName, componentName) {
+        if (typeof props[propName] !== "string") {
+          return new Error(
+            "Hey, the component ${componentName} needs the prop ${propName} to be a string, but you passed a ${typeof props[propName]}"
+          );
+        }
+      },
+    };
+
     SayHello.propTypes = {
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
-    }
+    };
 
-    const element = <SayHello firstName={false} />
+    const element = <SayHello firstName={false} />;
 
-    ReactDOM.render(element, rootElement)
+    ReactDOM.render(element, rootElement);
   </script>
 </body>
